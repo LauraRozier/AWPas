@@ -1466,12 +1466,10 @@ AWAPI int   aw_mover_rider_delete (int id, int session);
 AWAPI int   aw_mover_links (int id);
 }
 // GUI handlers
-{
-AWAPI int   aw_hud_create ();
-AWAPI int   aw_hud_click ();
-AWAPI int   aw_hud_destroy (int session, int id);
-AWAPI int   aw_hud_clear (int session);
-}
+function aw_hud_create: Integer; cdecl;
+function aw_hud_click: Integer; cdecl;
+function aw_hud_destroy(session, id: Integer): Integer; cdecl;
+function aw_hud_clear(session: Integer): Integer; cdecl;
 // Laser handlers
 {
 AWAPI int   aw_laser_beam ();
@@ -1699,6 +1697,11 @@ function aw_world_attributes_send;   external libName;
 // Chat handlers
 function aw_say;  external libName;
 function aw_sayW; external libName;
+// GUI handlers
+function aw_hud_create;  external libName;
+function aw_hud_click;   external libName;
+function aw_hud_destroy; external libName;
+function aw_hud_clear;   external libName;
 // Converters
 function aw_int;         external libName;
 function aw_int_set;     external libName;
