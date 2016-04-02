@@ -1294,7 +1294,7 @@ procedure aw_event(a: AW_EVENT_ATTRIBUTE); cdecl;
 function  aw_event_set(a: AW_EVENT_ATTRIBUTE; handler: THandler): Integer; cdecl;
 // Callbacks
 function aw_callback(c: TAW_CALLBACK): TCallBack; cdecl;
-function aw_callback_set (c: TAW_CALLBACK; callback: TCallBack): Integer; cdecl;
+function aw_callback_set(c: TAW_CALLBACK; callback: TCallBack): Integer; cdecl;
 // World handlers
 function aw_enter(const world: AnsiString): Integer; cdecl;
 function aw_enterW(const world: WideString): Integer; cdecl;
@@ -1499,73 +1499,62 @@ function aw_float_set(a: AW_ATTRIBUTE; value: Single): Integer; cdecl;
 function aw_data(a: AW_ATTRIBUTE; length: PFixedUInt): PAnsiChar; cdecl;
 function aw_data_set(a: AW_ATTRIBUTE; const value: PAnsiChar; length: FixedUInt): Integer; cdecl;
 // Misc and Utils
-function aw_state_change: Integer; cdecl;
-function aw_wait(milliseconds: Integer): Integer; cdecl;
-function aw_world_list: Integer; cdecl;
-function aw_random: Integer; cdecl;
-{
-AWAPI int   aw_session (void);
-AWAPI int   aw_address (int session_id);
-AWAPI int   aw_toolbar_click (void);
-AWAPI int   aw_noise (int session_id);
-AWAPI int   aw_botmenu_send (void);
-AWAPI unsigned __int64 aw_tick ();
-AWAPI int   aw_check_right (int citizen, char* str);
-AWAPI int   aw_check_rightW (int citizen, wchar_t* str);
-AWAPI int   aw_check_right_all (char* str);
-AWAPI int   aw_check_right_allW (wchar_t* str);
-AWAPI int   aw_has_world_right (int citizen, AW_ATTRIBUTE right);
-AWAPI int   aw_has_world_right_all (AW_ATTRIBUTE right);
-AWAPI int   aw_traffic_count (int* traffic_in, int* traffic_out);
-AWAPI int   aw_zip (unsigned char* data_out, unsigned int* len_out,
-                    unsigned char* data_in, unsigned int len_in);
-AWAPI int   aw_unzip (unsigned char* data_out, unsigned int* len_out,
-                    unsigned char* data_in, unsigned int len_in);
-
-AWAPI wchar_t* aw_string_to_unicode (char* str);
-AWAPI char* aw_string_from_unicode (wchar_t* str);
-AWAPI void  aw_string_set_MBCS_codepage (unsigned int codepage);
-}
+function  aw_state_change: Integer; cdecl;
+function  aw_wait(milliseconds: Integer): Integer; cdecl;
+function  aw_world_list: Integer; cdecl;
+function  aw_random: Integer; cdecl;
+function  aw_session: Integer; cdecl;
+function  aw_address: Integer; cdecl;
+function  aw_toolbar_click: Integer; cdecl;
+function  aw_noise(session_id: Integer): Integer; cdecl;
+function  aw_botmenu_send: Integer; cdecl;
+function  aw_tick: UInt64; cdecl;
+function  aw_check_right(citizen: Integer; str: AnsiString): Integer; cdecl;
+function  aw_check_rightW(citizen: Integer; str: WideString): Integer; cdecl;
+function  aw_check_right_all(str: AnsiString): Integer; cdecl;
+function  aw_check_right_allW(str: WideString): Integer; cdecl;
+function  aw_has_world_right(citizen: Integer; right: AW_ATTRIBUTE): Integer; cdecl;
+function  aw_has_world_right_all(right: AW_ATTRIBUTE): Integer; cdecl;
+function  aw_traffic_count(traffic_in, traffic_out: PInteger): Integer; cdecl;
+function  aw_zip(data_out: PByte; len_out: PFixedUInt;
+                 data_in: PByte; len_in: FixedUInt): Integer; cdecl;
+function  aw_unzip(data_out: PByte; len_out: PFixedUInt;
+                   data_in: PByte; len_in: FixedUInt): Integer; cdecl;
+function  aw_string_to_unicode(str: AnsiString): WideString; cdecl;
+function  aw_string_from_unicode(str: WideString): AnsiString; cdecl;
+procedure aw_string_set_MBCS_codepage(codepage: FixedUInt); cdecl;
 
 { object-type specific macro methods }
-{
-AWAPI int   aw_object_zone_set (
-            aw_type_vector size, unsigned char shape, char priority,
-            float gravity, float friction, unsigned short flags, unsigned long color,
-            unsigned short fog_min, unsigned short fog_max,
-            char* footstep, char* ambient, char* camera, char* target_cur, char* voip_rights, char* name);
-AWAPI aw_object_data_zone* aw_object_zone (int* len);
-AWAPI int   aw_object_particles_set (
-            aw_type_vector_range volume, aw_type_vector_range speed,
-            aw_type_vector_range accel,  aw_type_vector_range angle,
-            aw_type_vector_range spin,   aw_type_vector_range size,
-            unsigned long release_min, unsigned long release_max, unsigned short release_size,
-            unsigned long lifespan, unsigned long emitter_lifespan,
-            unsigned long fade_in, unsigned long fade_out,
-            unsigned long color_start, unsigned long color_end,
-            float opacity, unsigned char render_style, unsigned short flags, unsigned char style,
-            char* asset_list, char* name);
-AWAPI aw_object_data_particles*  aw_object_particles (int* len);
-AWAPI int   aw_object_cloth_set (unsigned char type, unsigned char shape, unsigned int flags, unsigned char anchor_type,
-            unsigned char anchor_pos, aw_type_vector anchor_offset, aw_type_vector orientation,
-            aw_type_vector dimension, unsigned char resolution,
-            float opacity, unsigned int color, float time_till_static,
-            float bending_stiffness, float stretching_stiffness, float compression_limit, float compression_stiffness, float hard_stretch_limit,
-            float damping_coeff, float collision_response, float tear_factor, float attachment_response, float attachment_tear_factor,
-            float density, float thickness, float friction, float pressure, aw_type_vector wind, aw_type_vector valid_bounds,
-            float impulse_threshold, float penetration_depth, float max_deformation_distance,
-            char* name, char* anchor, char* texture, char* model);
-AWAPI aw_object_data_cloth*  aw_object_cloth (int* len);
-AWAPI int   aw_object_camera_set (unsigned short flags, float zoom, char* name);
-AWAPI aw_object_data_camera* aw_object_camera (int* len);
-AWAPI int   aw_object_mover_set (unsigned char type, unsigned short flags,
-            short locked_pos_x, short locked_pos_y, short locked_pos_z, short locked_yaw, short locked_pitch,
-            char glide_factor, unsigned char speed_factor, unsigned char friction_factor,
-            char accel_tilt_x, char accel_tilt_z, unsigned char turn_factor, unsigned char avatar_tag,
-            char* name, char* seq, char* script, char* sound,
-            unsigned short waypoints_len, void* waypoints, char* bump_name);
-AWAPI aw_object_data_mover*  aw_object_mover (int* len);
-}
+function aw_object_zone_set(size: aw_type_vector; shape: Byte; priority: AnsiChar; gravity, friction: Single;
+                            flags: Word; color: LongInt; fog_min, fog_max: Word;
+                            footstep, ambient, camera, target_cur, voip_rights, name: AnsiString): Integer; cdecl;
+function aw_object_zone(len: PInteger): aw_object_data_zone; cdecl;
+function aw_object_particles_set(volume, speed, accel, angle, spin, size: aw_type_vector_range;
+                                 release_min, release_max: LongInt; release_size: Word;
+                                 lifespan, emitter_lifespan, fade_in, fade_out, color_start, color_end: LongInt;
+                                 opacity: Single; render_style: Byte; flags: Word; style: Byte;
+                                 asset_list, name: AnsiString): Integer; cdecl;
+function aw_object_particles(len: PInteger): aw_object_data_particles; cdecl;
+function aw_object_cloth_set(_type, shape: Byte; flags: FixedUInt; anchor_type, anchor_pos: Byte;
+                             anchor_offset, orientation, dimension: aw_type_vector;
+                             resolution: Byte; opacity: Single; color: FixedUInt;
+                             time_till_static, bending_stiffness, stretching_stiffness, compression_limit,
+                             compression_stiffness, hard_stretch_limit, damping_coeff, collision_response,
+                             tear_factor, attachment_response, attachment_tear_factor, density, thickness,
+                             friction, pressure: Single;
+                             wind, valid_bounds: aw_type_vector;
+                             impulse_threshold, penetration_depth, max_deformation_distance: Single;
+                             name, anchor, texture, model: AnsiString): Integer; cdecl;
+function aw_object_cloth(len: PInteger): aw_object_data_cloth; cdecl;
+function aw_object_camera_set(flags: Word; zoom: Single; name: AnsiString): Integer; cdecl;
+function aw_object_camera(len: PInteger): aw_object_data_camera; cdecl;
+function aw_object_mover_set(_type: Byte; flags: Word;
+                             locked_pos_x, locked_pos_y, locked_pos_z, locked_yaw, locked_pitch: SmallInt;
+                             glide_factor: AnsiChar; speed_factor, friction_factor: Byte;
+                             accel_tilt_x, accel_tilt_z: AnsiChar; turn_factor, avatar_tag: Byte;
+                             name, seq, script, sound: AnsiString;
+                             waypoints_len: Word; waypoints: Pointer; bump_name: AnsiString): Integer; cdecl;
+function aw_object_mover(len: PInteger): aw_object_data_mover; cdecl;
 
 { methods below are not currently available in the SDK }
 // Contacts
@@ -1701,10 +1690,39 @@ function aw_float_set;   external libName;
 function aw_data;        external libName;
 function aw_data_set;    external libName;
 // Misc and Utils
-function aw_state_change; external libName;
-function aw_wait;         external libName;
-function aw_world_list;   external libName;
-function aw_random;       external libName;
+function  aw_state_change;             external libName;
+function  aw_wait;                     external libName;
+function  aw_world_list;               external libName;
+function  aw_random;                   external libName;
+function  aw_session;                  external libName;
+function  aw_address;                  external libName;
+function  aw_toolbar_click;            external libName;
+function  aw_noise;                    external libName;
+function  aw_botmenu_send;             external libName;
+function  aw_tick;                     external libName;
+function  aw_check_right;              external libName;
+function  aw_check_rightW;             external libName;
+function  aw_check_right_all;          external libName;
+function  aw_check_right_allW;         external libName;
+function  aw_has_world_right;          external libName;
+function  aw_has_world_right_all;      external libName;
+function  aw_traffic_count;            external libName;
+function  aw_zip;                      external libName;
+function  aw_unzip;                    external libName;
+function  aw_string_to_unicode;        external libName;
+function  aw_string_from_unicode;      external libName;
+procedure aw_string_set_MBCS_codepage; external libName;
+
+{ object-type specific macro methods }
+function aw_object_zone_set;      external libName;
+function aw_object_particles_set; external libName;
+function aw_object_particles;     external libName;
+function aw_object_cloth_set;     external libName;
+function aw_object_cloth;         external libName;
+function aw_object_camera_set;    external libName;
+function aw_object_camera;        external libName;
+function aw_object_mover_set;     external libName;
+function aw_object_mover;         external libName;
 
 end.
 
