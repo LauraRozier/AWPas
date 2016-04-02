@@ -1471,9 +1471,7 @@ function aw_hud_click: Integer; cdecl;
 function aw_hud_destroy(session, id: Integer): Integer; cdecl;
 function aw_hud_clear(session: Integer): Integer; cdecl;
 // Laser handlers
-{
-AWAPI int   aw_laser_beam ();
-}
+function aw_laser_beam: Integer; cdecl;
 // World Admin handlers
 {
 AWAPI int   aw_server_admin (const char* domain, int port, const char* password, void** instance);
@@ -1702,6 +1700,8 @@ function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
 function aw_hud_destroy; external libName;
 function aw_hud_clear;   external libName;
+// Laser handlers
+function aw_laser_beam; external libName;
 // Converters
 function aw_int;         external libName;
 function aw_int_set;     external libName;
