@@ -378,7 +378,7 @@ type
     AW_CONSOLE_BLUE,
     AW_CONSOLE_BOLD,
     AW_CONSOLE_ITALICS,
-    AW_CONSOLE_MESSAGE,
+    AW_CONSOLE_MSG,
     AW_BOTGRAM_TO,
     AW_BOTGRAM_FROM,
     AW_BOTGRAM_FROM_NAME,
@@ -1332,19 +1332,15 @@ function aw_universe_ejection_lookup: Integer; cdecl;
 function aw_universe_ejection_next: Integer; cdecl;
 function aw_universe_ejection_previous: Integer; cdecl;
 // Chat handlers
-{
-AWAPI int   aw_listen (const int channels);
-AWAPI int   aw_say_channel (const char* message, const int channel);
-AWAPI int   aw_say_channelW (const wchar_t* message, const int channel);
-}
+function aw_listen(const channels: Integer): Integer; cdecl;
+function aw_say_channel(const _message: AnsiString; const channel: Integer): Integer; cdecl;
+function aw_say_channelW(const _message: WideString; const channel: Integer): Integer; cdecl;
 function aw_say(const _message: AnsiString): Integer; cdecl;
-function aw_sayW (const _message: WideString): Integer; cdecl;
-{
-AWAPI int   aw_whisper (int session_id, const char* message);
-AWAPI int   aw_whisperW (int session_id, const wchar_t* message);
-AWAPI int   aw_console_message (int session_id);
-AWAPI int   aw_botgram_send (void);
-}
+function aw_sayW(const _message: WideString): Integer; cdecl;
+function aw_whisper(session_id: Integer; const _message: AnsiString): Integer; cdecl;
+function aw_whisperW(session_id: Integer; const _message: WideString): Integer; cdecl;
+function aw_console_message(session_id: Integer): Integer; cdecl;
+function aw_botgram_send: Integer; cdecl;
 // Citizen handlers
 {
 AWAPI int   aw_citizen_attributes_by_name (const char* name);
@@ -1698,8 +1694,15 @@ function aw_universe_ejection_lookup;   external libName;
 function aw_universe_ejection_next;     external libName;
 function aw_universe_ejection_previous; external libName;
 // Chat handlers
-function aw_say;  external libName;
-function aw_sayW; external libName;
+function aw_listen;          external libName;
+function aw_say_channel;     external libName;
+function aw_say_channelW;    external libName;
+function aw_say;             external libName;
+function aw_sayW;            external libName;
+function aw_whisper;         external libName;
+function aw_whisperW;        external libName;
+function aw_console_message; external libName;
+function aw_botgram_send;    external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
