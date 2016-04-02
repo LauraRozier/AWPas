@@ -1325,14 +1325,12 @@ function aw_world_instance_set(citizen, world_instance: Integer): Integer; cdecl
 function aw_world_instance_get(citizen: Integer): Integer; cdecl;
 function aw_world_attributes_send(session_id: Integer): Integer; cdecl;
 // Universe handlers
-{
-AWAPI int   aw_universe_attributes_change (void);
-AWAPI int   aw_universe_ejection_add (void);
-AWAPI int   aw_universe_ejection_delete (int address);
-AWAPI int   aw_universe_ejection_lookup (void);
-AWAPI int   aw_universe_ejection_next (void);
-AWAPI int   aw_universe_ejection_previous (void);
-}
+function aw_universe_attributes_change: Integer; cdecl;
+function aw_universe_ejection_add: Integer; cdecl;
+function aw_universe_ejection_delete(address: Integer): Integer; cdecl;
+function aw_universe_ejection_lookup: Integer; cdecl;
+function aw_universe_ejection_next: Integer; cdecl;
+function aw_universe_ejection_previous: Integer; cdecl;
 // Chat handlers
 {
 AWAPI int   aw_listen (const int channels);
@@ -1692,6 +1690,13 @@ function aw_world_attributes_reset;  external libName;
 function aw_world_instance_set;      external libName;
 function aw_world_instance_get;      external libName;
 function aw_world_attributes_send;   external libName;
+// Universe handlers
+function aw_universe_attributes_change; external libName;
+function aw_universe_ejection_add;      external libName;
+function aw_universe_ejection_delete;   external libName;
+function aw_universe_ejection_lookup;   external libName;
+function aw_universe_ejection_next;     external libName;
+function aw_universe_ejection_previous; external libName;
 // Chat handlers
 function aw_say;  external libName;
 function aw_sayW; external libName;
