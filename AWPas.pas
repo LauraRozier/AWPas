@@ -1272,6 +1272,15 @@ AW_MOVER_FLAGS = (
   TCallBack = procedure(rc: Integer) of object;
   THandler  = procedure of object;
 
+  Paw_type_vector           = ^aw_type_vector;
+  Paw_type_vector_range     = ^aw_type_vector_range;
+  Paw_object_data_zone      = ^aw_object_data_zone;
+  Paw_object_data_particles = ^aw_object_data_particles;
+  Paw_object_data_cloth     = ^aw_object_data_cloth;
+  Paw_object_data_camera    = ^aw_object_data_camera;
+  Paw_object_data_mover     = ^aw_object_data_mover;
+  Paw_waypoint              = ^aw_waypoint;
+
 // Initializers and destroyers
 function  aw_sdk_build: Integer; cdecl;
 function  aw_init(build: Integer): Integer; cdecl;
@@ -1526,13 +1535,13 @@ procedure aw_string_set_MBCS_codepage(codepage: FixedUInt); cdecl;
 function aw_object_zone_set(size: aw_type_vector; shape: Byte; priority: AnsiChar; gravity, friction: Single;
                             flags: Word; color: LongInt; fog_min, fog_max: Word;
                             footstep, ambient, camera, target_cur, voip_rights, name: AnsiString): Integer; cdecl;
-function aw_object_zone(len: PInteger): aw_object_data_zone; cdecl;
+function aw_object_zone(len: PInteger): Paw_object_data_zone; cdecl;
 function aw_object_particles_set(volume, speed, accel, angle, spin, size: aw_type_vector_range;
                                  release_min, release_max: LongInt; release_size: Word;
                                  lifespan, emitter_lifespan, fade_in, fade_out, color_start, color_end: LongInt;
                                  opacity: Single; render_style: Byte; flags: Word; style: Byte;
                                  asset_list, name: AnsiString): Integer; cdecl;
-function aw_object_particles(len: PInteger): aw_object_data_particles; cdecl;
+function aw_object_particles(len: PInteger): Paw_object_data_particles; cdecl;
 function aw_object_cloth_set(_type, shape: Byte; flags: FixedUInt; anchor_type, anchor_pos: Byte;
                              anchor_offset, orientation, dimension: aw_type_vector;
                              resolution: Byte; opacity: Single; color: FixedUInt;
@@ -1543,16 +1552,16 @@ function aw_object_cloth_set(_type, shape: Byte; flags: FixedUInt; anchor_type, 
                              wind, valid_bounds: aw_type_vector;
                              impulse_threshold, penetration_depth, max_deformation_distance: Single;
                              name, anchor, texture, model: AnsiString): Integer; cdecl;
-function aw_object_cloth(len: PInteger): aw_object_data_cloth; cdecl;
+function aw_object_cloth(len: PInteger): Paw_object_data_cloth; cdecl;
 function aw_object_camera_set(flags: Word; zoom: Single; name: AnsiString): Integer; cdecl;
-function aw_object_camera(len: PInteger): aw_object_data_camera; cdecl;
+function aw_object_camera(len: PInteger): Paw_object_data_camera; cdecl;
 function aw_object_mover_set(_type: Byte; flags: Word;
                              locked_pos_x, locked_pos_y, locked_pos_z, locked_yaw, locked_pitch: SmallInt;
                              glide_factor: AnsiChar; speed_factor, friction_factor: Byte;
                              accel_tilt_x, accel_tilt_z: AnsiChar; turn_factor, avatar_tag: Byte;
                              name, seq, script, sound: AnsiString;
                              waypoints_len: Word; waypoints: Pointer; bump_name: AnsiString): Integer; cdecl;
-function aw_object_mover(len: PInteger): aw_object_data_mover; cdecl;
+function aw_object_mover(len: PInteger): Paw_object_data_mover; cdecl;
 
 { methods below are not currently available in the SDK }
 // Contacts
@@ -1729,6 +1738,7 @@ procedure aw_string_set_MBCS_codepage; external libName;
 
 { object-type specific macro methods }
 function aw_object_zone_set;      external libName;
+function aw_object_zone;          external libName;
 function aw_object_particles_set; external libName;
 function aw_object_particles;     external libName;
 function aw_object_cloth_set;     external libName;
