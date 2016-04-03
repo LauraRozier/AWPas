@@ -1446,21 +1446,21 @@ function aw_hud_clear(session: Integer): Integer; cdecl;
 // Laser handlers
 function aw_laser_beam: Integer; cdecl;
 // World Admin handlers
-{
-AWAPI int   aw_server_admin (const char* domain, int port, const char* password, void** instance);
-AWAPI int   aw_server_adminW (const wchar_t* domain, int port, const wchar_t* password, void** instance);
-AWAPI int   aw_server_world_add (void);
-AWAPI int   aw_server_world_delete (int id);
-AWAPI int   aw_server_world_change (int id);
-AWAPI int   aw_server_world_list (void);
-AWAPI int   aw_server_world_start (int id);
-AWAPI int   aw_server_world_stop (int id);
-AWAPI int   aw_server_world_set (int id);
-AWAPI int   aw_server_world_get ();
-AWAPI int   aw_server_world_instance_set (int id);
-AWAPI int   aw_server_world_instance_add (int id, int instance_id);
-AWAPI int   aw_server_world_instance_delete (int id, int instance_id);
-}
+function aw_server_admin(const domain: AnsiString; port: Integer;
+                         const password: AnsiString; instance: PPointer): Integer; cdecl;
+function aw_server_adminW(const domain: WideString; port: Integer;
+                          const password: WideString; instance: PPointer): Integer; cdecl;
+function aw_server_world_add: Integer; cdecl;
+function aw_server_world_delete(id: Integer): Integer; cdecl;
+function aw_server_world_change(id: Integer): Integer; cdecl;
+function aw_server_world_list: Integer; cdecl;
+function aw_server_world_start(id: Integer): Integer; cdecl;
+function aw_server_world_stop(id: Integer): Integer; cdecl;
+function aw_server_world_set(id: Integer): Integer; cdecl;
+function aw_server_world_get: Integer; cdecl;
+function aw_server_world_instance_set(id: Integer): Integer; cdecl;
+function aw_server_world_instance_add(id, instance_id: Integer): Integer; cdecl;
+function aw_server_world_instance_delete(id, instance_id: Integer): Integer; cdecl;
 // Converters
 function aw_int(a: AW_ATTRIBUTE): Integer; cdecl;
 function aw_int_set(a: AW_ATTRIBUTE; value: Integer): Integer; cdecl;
@@ -1781,6 +1781,20 @@ function aw_hud_destroy; external libName;
 function aw_hud_clear;   external libName;
 // Laser handlers
 function aw_laser_beam; external libName;
+// World Admin handlers
+function aw_server_admin;                 external libName;
+function aw_server_adminW;                external libName;
+function aw_server_world_add;             external libName;
+function aw_server_world_delete;          external libName;
+function aw_server_world_change;          external libName;
+function aw_server_world_list;            external libName;
+function aw_server_world_start;           external libName;
+function aw_server_world_stop;            external libName;
+function aw_server_world_set;             external libName;
+function aw_server_world_get;             external libName;
+function aw_server_world_instance_set;    external libName;
+function aw_server_world_instance_add;    external libName;
+function aw_server_world_instance_delete; external libName;
 // Converters
 function aw_int;         external libName;
 function aw_int_set;     external libName;
