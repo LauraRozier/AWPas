@@ -1593,6 +1593,11 @@ function aw_xfer_request_showW(const ShowName: WideString; ShowSequence: Integer
 function aw_xfer_cancel: Integer; cdecl;
 function aw_xfer_query: Integer; cdecl;
 
+{ Custom methods }
+// Error code to string
+function aw_GetErrorText(errNum: Integer): AnsiString;
+function aw_GetErrorTextLong(errNum: Integer): AnsiString;
+
 implementation
 
 // Initializers and destroyers
@@ -1876,6 +1881,225 @@ function aw_xfer_request_show;  external libName;
 function aw_xfer_request_showW; external libName;
 function aw_xfer_cancel;        external libName;
 function aw_xfer_query;         external libName;
+
+{ Custom methods }
+// Error code to string
+function aw_GetErrorText(errNum: Integer): AnsiString;
+begin
+	case errNum of
+		// RC_SUCCESS
+		0: result := 'Success';
+		// RC_CITIZENSHIP_EXPIRED
+		1: result := 'Citizenship has expired';
+		// RC_LAND_LIMIT_EXCEEDED
+		2: result := 'Land limit exceeded';
+		// RC_NO_SUCH_CITIZEN
+		3: result := 'No such citizen';
+		// RC_LICENSE_PASSWORD_CONTAINS_SPACE
+		5: result := 'License password contains space';
+		// RC_LICENSE_PASSWORD_TOO_LONG
+		6: result := 'License password too long';
+		// RC_LICENSE_PASSWORD_TOO_SHORT
+		7: result := 'License password too short';
+		// RC_LICENSE_RANGE_TOO_LARGE
+		8: result := 'License range too large';
+		// RC_LICENSE_RANGE_TOO_SMALL
+		9: result := 'License range too small';
+		// RC_LICENSE_USERS_TOO_LARGE
+		10: result := 'License users too large';
+		// RC_LICENSE_USERS_TOO_SMALL
+		11: result := 'License users too small';
+		// RC_INVALID_PASSWORD
+		13: result := 'Invalid password';
+		// RC_LICENSE_WORLD_TOO_SHORT
+		15: result := 'License world too short';
+		// RC_LICENSE_WORLD_TOO_LONG
+		16:	result := 'License world too long';
+		// RC_INVALID_WORLD
+		20:	result := 'Invalid world';
+		// RC_SERVER_OUTDATED
+		21:	result := 'Server outdated';
+		// RC_WORLD_ALREADY_STARTED
+		22:	result := 'World already started';
+		// RC_NO_SUCH_WORLD
+		27:	result := 'No such world';
+		// RC_UNAUTHORIZED
+		32:	result := 'Unauthorized';
+		// RC_NO_SUCH_LICENSE
+		34:	result := 'No such license';
+		// RC_TOO_MANY_WORLDS
+		57:	result := 'Too many worlds';
+		// RC_MUST_UPGRADE
+		58:	result := 'Must upgrade';
+		// RC_BOT_LIMIT_EXCEEDED
+		59:	result := 'Bot limit exceeded';
+		// RC_WORLD_EXPIRED
+		61:	result := 'World expired';
+		// RC_CITIZEN_DOES_NOT_EXPIRE
+		62:	result := 'Citizen does not expire';
+		// RC_LICENSE_STARTS_WITH_NUMBER
+		64:	result := 'License starts with number';
+		// RC_NO_SUCH_EJECTION
+		66:	result := 'No such ejection';
+		// RC_NO_SUCH_SESSION
+		67:	result := 'No such session';
+		// RC_WORLD_RUNNING
+		72:	result := 'World running';
+		// RC_WORLD_NOT_SET
+		73:	result := 'World not set';
+		// RC_NO_SUCH_CELL
+		74:	result := 'No such cell';
+		// RC_NO_REGISTRY
+		75: result := 'No registry';
+		// RC_CANT_OPEN_REGISTRY
+		76:	result := 'Can''t open registry';
+		// RC_CITIZEN_DISABLED
+		77:	result := 'Citizen disabled';
+		// RC_WORLD_DISABLED
+		78: result := 'World disabled';
+		// RC_TELEGRAM_BLOCKED
+		85:	result := 'Telegram blocked';
+		// RC_UNABLE_TO_UPDATE_TERRAIN
+		88:	result := 'Unable to update terrain';
+		// RC_EMAIL_CONTAINS_INVALID_CHAR
+		100: result := 'Email contains invalid char';
+		// RC_EMAIL_ENDS_WITH_BLANK
+		101: result := 'Email ends with blank';
+		{ // Double definition....?
+		// RC_NO_SUCH_OBJECT
+		101: result := 'No such object';
+    }
+		// RC_EMAIL_MISSING_DOT
+		102: result := 'Email missing dot';
+		{ // Double definition....?
+		// RC_NOT_DELETE_OWNER
+		102: result := 'Not delete owner';
+    }
+		// RC_EMAIL_MISSING_AT
+		103: result := 'Email missing at';
+		// RC_EMAIL_STARTS_WITH_BLANK
+		104: result := 'Email starts with blank';
+		// RC_EMAIL_TOO_LONG
+		105: result := 'Email too long';
+		// RC_EMAIL_TOO_SHORT
+		106: result := 'Email too short';
+		// RC_NAME_ALREADY_USED
+		107: result := 'Name already used';
+		// RC_NAME_CONTAINS_NONALPHANUMERIC_CHAR
+		108: result := 'Name contains nonalphanumeric character';
+		// RC_NAME_CONTAINS_INVALID_BLANK
+		109: result := 'Name contains invalid blank';
+		// RC_NAME_ENDS_WITH_BLANK
+		111: result := 'Name ends with blank';
+		// RC_NAME_TOO_LONG
+		112: result := 'Name too long';
+		// RC_NAME_TOO_SHORT
+		113: result := 'Name too short';
+		// RC_PASSWORD_TOO_LONG
+		115: result := 'Password too long';
+		// RC_PASSWORD_TOO_SHORT
+		116: result := 'Password too short';
+		// RC_UNABLE_TO_DELETE_CITIZEN
+		124: result := 'Unable to delete citizen';
+		// RC_NUMBER_ALREADY_USED
+		126: result := 'Number already used';
+		// RC_NUMBER_OUT_OF_RANGE
+		127: result := 'Number out of range';
+		// RC_PRIVILEGE_PASSWORD_IS_TOO_SHORT
+		128: result := 'Privilege password is too short';
+		// RC_PRIVILEGE_PASSWORD_IS_TOO_LONG
+		129: result := 'Privilege password is too long';
+		// RC_NOT_CHANGE_OWNER
+		203: result := 'Not change owner';
+		// RC_CANT_FIND_OLD_ELEMENT
+		204: result := 'Can''t find old element';
+		// RC_IMPOSTER
+		212: result := 'Imposter';
+		// RC_ENCROACHES
+		300: result := 'Encroaches';
+		// RC_OBJECT_TYPE_INVALID
+		301: result := 'Object type invalid';
+		// RC_TOO_MANY_BYTES
+		303: result := 'Too many bytes';
+		// RC_UNREGISTERED_OBJECT
+		306: result := 'Unregistered object';
+		// RC_ELEMENT_ALREADY_EXISTS
+		308: result := 'Element already exists';
+		// RC_RESTRICTED_COMMAND
+		309: result := 'Restricted command';
+		// RC_OUT_OF_BOUNDS
+		311: result := 'Out of bounds';
+		// RC_RESTRICTED_OBJECT
+		313: result := 'Restricted object';
+		// RC_RESTRICTED_AREA
+		314: result := 'Restricted area';
+		// RC_NOT_YET
+		401: result := 'Not yet';
+		// RC_TIMEOUT
+		402: result := 'Timeout';
+		// RC_UNABLE_TO_CONTACT_UNIVERSE
+		404: result := 'Unable to contact universe';
+		// RC_NO_CONNECTION
+		439: result := 'No connection';
+		// RC_NOT_INITIALIZED
+		444: result := 'Not initialized';
+		// RC_NO_INSTANCE
+		445: result := 'No instance';
+		// RC_INVALID_ATTRIBUTE
+		448: result := 'Invalid attribute';
+		// RC_TYPE_MISMATCH
+		449: result := 'Type mismatch';
+		// RC_STRING_TOO_LONG
+		450: result := 'String too long';
+		// RC_READ_ONLY
+		451: result := 'Read only';
+		// RC_INVALID_INSTANCE
+		453: result := 'Invalid instance';
+		// RC_VERSION_MISMATCH
+		454: result := 'Version mismatch';
+		// RC_QUERY_IN_PROGRESS
+		464: result := 'Query in progress';
+		// RC_EJECTED
+		466: result := 'Ejected';
+		// RC_NOT_WELCOME
+		467: result := 'Not welcome';
+		// RC_CONNECTION_LOST
+		471: result := 'Connection lost';
+		// RC_NOT_AVAILABLE
+		474: result := 'Not available';
+		// RC_CANT_RESOLVE_UNIVERSE_HOST
+		500: result := 'Can''t resolve universe host';
+		// RC_INVALID_ARGUMENT
+		505: result := 'Invalid argument';
+		// RC_UNABLE_TO_UPDATE_CAV
+		514: result := 'Unable to update custom avatar';
+		// RC_UNABLE_TO_DELETE_CAV
+		515: result := 'Unable to delete custom avatar';
+		// RC_NO_SUCH_CAV
+		516: result := 'No such custom avatar';
+		// RC_WORLD_INSTANCE_ALREADY_EXISTS
+		521: result := 'World instance already exists';
+		// RC_WORLD_INSTANCE_INVALID
+		522: result := 'World instance invalid';
+		// RC_PLUGIN_NOT_AVAILABLE
+		523: result := 'Plugin not available';
+		// RC_DATABASE_ERROR
+		600: result := 'Database error';
+		// RC_Z_BUF_ERROR
+		4995: result := 'Buffer error(zlib)';
+		// RC_Z_MEM_ERROR
+		4996: result := 'Memory error(zlib)';
+		// RC_Z_DATA_ERROR
+		4997: result := 'Data error(zlib)';
+    // UNKNOWN
+		else result := 'Unknown error';
+  end;
+end;
+
+function aw_GetErrorTextLong(errNum: Integer): AnsiString;
+begin
+  //
+end;
 
 end.
 
