@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{EC9C182F-17D9-4D79-85A8-4F1C9583A531}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="GreeterBot\GreeterBot.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="GreeterBot">
+        <MSBuild Projects="GreeterBot\GreeterBot.dproj"/>
+    </Target>
+    <Target Name="GreeterBot:Clean">
+        <MSBuild Projects="GreeterBot\GreeterBot.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GreeterBot:Make">
+        <MSBuild Projects="GreeterBot\GreeterBot.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="GreeterBot"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="GreeterBot:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="GreeterBot:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -2,3 +2,5 @@ __history
 DCU
 *.local
 *.rsm
+*.res
+*.exe
