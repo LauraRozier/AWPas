@@ -1,5 +1,4 @@
 unit AWPas;
-{.$DEFINE USE64} // Remove the dot to use 64-bit binary
 
 interface
 
@@ -8,7 +7,7 @@ uses
   {$IFDEF MSWindows}, Windows{$ENDIF};
 
 const
-  {$IFDEF USE64}
+  {$IFDEF WIN64}
   libName = 'aw64.dll';
   {$ELSE}
   libName = 'aw.dll';
