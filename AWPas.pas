@@ -1374,19 +1374,18 @@ function aw_shoptrans_buy: Integer; cdecl;
 function aw_shoptrans_add: Integer; cdecl;
 function aw_shoptrans_list(citizen, iterator: Integer): Integer; cdecl;
 // Crypto
-function aw_decipher(_type: Integer; bufIn: AnsiString; bufInLen: Integer; bufOut: AnsiString; bufOutLen: PInteger): Integer; cdecl;
+function aw_decipher(_type: Integer; bufIn: AnsiString; bufInLen: Integer;
+                     bufOut: AnsiString; bufOutLen: PInteger): Integer; cdecl;
 {$ENDIF}
 // License handlers
-{
-AWAPI int   aw_license_add (void);
-AWAPI int   aw_license_attributes (const char* name);
-AWAPI int   aw_license_attributesW (const wchar_t* name);
-AWAPI int   aw_license_change (void);
-AWAPI int   aw_license_delete (const char* name);
-AWAPI int   aw_license_deleteW (const wchar_t* name);
-AWAPI int   aw_license_next (void);
-AWAPI int   aw_license_previous (void);
-}
+function aw_license_add: Integer; cdecl;
+function aw_license_attributes(const name: AnsiString): Integer; cdecl;
+function aw_license_attributesW(const name: WideString): Integer; cdecl;
+function aw_license_change: Integer; cdecl;
+function aw_license_delete(const name: AnsiString): Integer; cdecl;
+function aw_license_deleteW(const name: WideString): Integer; cdecl;
+function aw_license_next: Integer; cdecl;
+function aw_license_previous: Integer; cdecl;
 // Object handlers
 {
 AWAPI int   aw_object_add (void);
@@ -1730,6 +1729,15 @@ function aw_shoptrans_list;    external libName;
 // Crypto
 function aw_decipher; external libName;
 {$ENDIF}
+// License handlers
+function aw_license_add;         external libName;
+function aw_license_attributes;  external libName;
+function aw_license_attributesW; external libName;
+function aw_license_change;      external libName;
+function aw_license_delete;      external libName;
+function aw_license_deleteW;     external libName;
+function aw_license_next;        external libName;
+function aw_license_previous;    external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
