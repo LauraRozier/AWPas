@@ -1387,29 +1387,23 @@ function aw_license_deleteW(const name: WideString): Integer; cdecl;
 function aw_license_next: Integer; cdecl;
 function aw_license_previous: Integer; cdecl;
 // Object handlers
-{
-AWAPI int   aw_object_add (void);
-AWAPI int   aw_object_add_session (int session);
-AWAPI int   aw_object_change (void);
-AWAPI int   aw_object_delete (void);
-AWAPI int   aw_object_delete_session (int session);
-AWAPI int   aw_object_load (void);
-AWAPI int   aw_object_query (void);
-AWAPI int   aw_object_click (void);
-AWAPI int   aw_object_select (void);
-AWAPI int   aw_delete_all_objects (void);
-AWAPI int   aw_object_bump (void);
-}
+function aw_object_add: Integer; cdecl;
+function aw_object_add_session(session: Integer): Integer; cdecl;
+function aw_object_change: Integer; cdecl;
+function aw_object_delete: Integer; cdecl;
+function aw_object_delete_session: Integer; cdecl;
+function aw_object_load: Integer; cdecl;
+function aw_object_query: Integer; cdecl;
+function aw_object_click: Integer; cdecl;
+function aw_object_select: Integer; cdecl;
+function aw_delete_all_objects: Integer; cdecl;
+function aw_object_bump: Integer; cdecl;
 // Query handlers
-{
-AWAPI int   aw_query (int x_sector, int z_sector, int sequence[3][3]);
-AWAPI int   aw_query_5x5 (int x_sector, int z_sector, int sequence[5][5]);
-}
+function aw_query(x_sector, z_sector: Integer; sequence: array[0..2] of array[0..2] of Integer): Integer; cdecl;
+function aw_query_5x5(x_sector, z_sector: Integer; sequence: array[0..4] of array[0..4] of Integer): Integer; cdecl;
 // Cell handlers
-{
-AWAPI int   aw_sector_from_cell (int cell);
-AWAPI int   aw_cell_next (void);
-}
+function aw_sector_from_cell(cell: Integer): Integer; cdecl;
+function aw_cell_next: Integer; cdecl;
 // Avatar handlers
 {
 AWAPI int   aw_avatar_click (int session_id);
@@ -1738,6 +1732,24 @@ function aw_license_delete;      external libName;
 function aw_license_deleteW;     external libName;
 function aw_license_next;        external libName;
 function aw_license_previous;    external libName;
+// Object handlers
+function aw_object_add;            external libName;
+function aw_object_add_session;    external libName;
+function aw_object_change;         external libName;
+function aw_object_delete;         external libName;
+function aw_object_delete_session; external libName;
+function aw_object_load;           external libName;
+function aw_object_query;          external libName;
+function aw_object_click;          external libName;
+function aw_object_select;         external libName;
+function aw_delete_all_objects;    external libName;
+function aw_object_bump;           external libName;
+// Query handlers
+function aw_query;     external libName;
+function aw_query_5x5; external libName;
+// Cell handlers
+function aw_sector_from_cell; external libName;
+function aw_cell_next;        external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
