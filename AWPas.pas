@@ -1596,7 +1596,7 @@ function aw_xfer_query: Integer; cdecl;
 { Custom methods }
 // Error code to string
 function aw_GetErrorText(errNum: Integer): AnsiString;
-function aw_GetErrorTextLong(errNum: Integer): AnsiString;
+function aw_GetFullErrorText(errNum: Integer): AnsiString;
 
 implementation
 
@@ -1936,7 +1936,7 @@ begin
 		// RC_WORLD_EXPIRED
 		61:	result := 'World expired';
 		// RC_CITIZEN_DOES_NOT_EXPIRE
-		62:	result := 'Citizen does not expire';
+		62:	result := 'Citizen does not expire'; //TODO: What is this used for ?
 		// RC_LICENSE_STARTS_WITH_NUMBER
 		64:	result := 'License starts with number';
 		// RC_NO_SUCH_EJECTION
@@ -2096,9 +2096,185 @@ begin
   end;
 end;
 
-function aw_GetErrorTextLong(errNum: Integer): AnsiString;
+function aw_GetFullErrorText(errNum: Integer): AnsiString;
 begin
-  //
+	case errNum of
+		// RC_SUCCESS
+		0: result := 'Operation has completed successfully.';
+		// RC_CITIZENSHIP_EXPIRED
+		1: result := 'Citizenship of the owner has expired.';
+		// RC_LAND_LIMIT_EXCEEDED
+		2: result := 'Land limit of the universe would be exceeded if the world is started.';
+		// RC_NO_SUCH_CITIZEN
+		3: result := 'No citizenship with a matching citizen number was found.';
+		// RC_LICENSE_PASSWORD_CONTAINS_SPACE
+		5: result := 'Password cannot contain a space.';
+		// RC_LICENSE_PASSWORD_TOO_LONG
+		6: result := 'Password cannot be longer than 8 characters.';
+		// RC_LICENSE_PASSWORD_TOO_SHORT
+		7: result := 'Password must be at least 2 characters.';
+		// RC_LICENSE_RANGE_TOO_LARGE
+		8: result := 'Range must be smaller than 3275 hectometers.' + sLineBreak +
+                 'That is, at most 32750 coordinates [N / S / W / E] or 655000 meters across.';
+		// RC_LICENSE_RANGE_TOO_SMALL
+		9: result := 'Range must be larger than 0 hectometers.' + sLineBreak +
+                 'That is, at least 10 coordinates [N / S / W / E] or 200 meters across.';
+		// RC_LICENSE_USERS_TOO_LARGE
+		10: result := 'User limit cannot exceed 1024.';
+		// RC_LICENSE_USERS_TOO_SMALL
+		11: result := 'User limit must be larger than 0.';
+		// RC_INVALID_PASSWORD
+		13: result := 'Unable to login due to invalid password.';
+		// RC_LICENSE_WORLD_TOO_SHORT
+		15: result := 'Name must be at least 2 characters.';
+		// RC_LICENSE_WORLD_TOO_LONG
+		16:	result := 'Name cannot be longer than 8 characters.';
+		// RC_INVALID_WORLD
+		20:	result := 'Unable to start the world due to invalid name or password.';
+		// RC_SERVER_OUTDATED
+		21:	result := 'Server build either contains a serious flaw or is outdated and must be upgraded.';
+		// RC_WORLD_ALREADY_STARTED
+		22:	result := 'World has already been started at a different location.';
+		// RC_NO_SUCH_WORLD
+		27:	result := 'No world with a matching name has been started on the server.';
+		// RC_UNAUTHORIZED
+		32:	result := 'Not authorized to perform the operation.';
+		// RC_NO_SUCH_LICENSE
+		34:	result := 'No license with a matching world name was found.';
+		// RC_TOO_MANY_WORLDS
+		57:	result := 'Limit of started worlds in the universe would be exceeded if the world is started.';
+		// RC_MUST_UPGRADE
+		58:	result := 'SDK build either contains a serious flaw or is outdated and must be upgraded.';
+		// RC_BOT_LIMIT_EXCEEDED
+		59:	result := 'Bot limit of the owner citizenship would be exceeded if the bot is logged in.';
+		// RC_WORLD_EXPIRED
+		61:	result := 'Unable to start world due to its license having expired.';
+		// RC_LICENSE_STARTS_WITH_NUMBER
+		64:	result := 'Name cannot start with a number.';
+		// RC_NO_SUCH_EJECTION
+		66:	result := 'No ejection with a matching identifier was found.';
+		// RC_NO_SUCH_SESSION
+		67:	result := 'No user with a matching session number has entered the world.';
+		// RC_WORLD_RUNNING
+		72:	result := '"World has already been started.';
+		// RC_WORLD_NOT_SET
+		73:	result := 'World to perform the operation on has not been set.';
+		// RC_NO_SUCH_CELL
+		74:	result := 'No more cells left to enumerate.';
+		// RC_NO_REGISTRY
+		75: result := 'Unable to start world due to missing or invalid registry.';
+		// RC_CANT_OPEN_REGISTRY
+		76:	result := 'Unable to open the registry.';
+		// RC_CITIZEN_DISABLED
+		77:	result := 'Citizenship of the owner has been disabled.';
+		// RC_WORLD_DISABLED
+		78: result := 'Unable to start world due to it being disabled.';
+		// RC_TELEGRAM_BLOCKED
+		85:	result := 'Telegrams have been blocked for this user.';
+		// RC_EMAIL_CONTAINS_INVALID_CHAR
+		100: result := 'Email address contains one or more invalid characters.';
+		// RC_EMAIL_ENDS_WITH_BLANK
+		101: result := 'Email address cannot end with a blank.';
+		{ // Double definition....?
+		// RC_NO_SUCH_OBJECT
+		101: result := 'Unable to find the object to delete.';
+    }
+		// RC_EMAIL_MISSING_DOT
+		102: result := 'Email address must contain at least one ".".';
+		{ // Double definition....?
+		// RC_NOT_DELETE_OWNER
+		102: result := 'The owner can not be deleted.';
+    }
+		// RC_EMAIL_MISSING_AT
+		103: result := 'Email address must contain a "@".';
+		// RC_EMAIL_STARTS_WITH_BLANK
+		104: result := 'Email address cannot start with a blank.';
+		// RC_EMAIL_TOO_LONG
+		105: result := 'Email address cannot be longer than 50 characters.';
+		// RC_EMAIL_TOO_SHORT
+		106: result := 'Email address must be at least 8 characters or longer.';
+		// RC_NAME_ALREADY_USED
+		107: result := 'Citizenship with a matching name already exists.';
+		// RC_NAME_CONTAINS_NONALPHANUMERIC_CHAR
+		108: result := 'Name contains invalid character(s) and therefor it cannot be used.';
+		// RC_NAME_CONTAINS_INVALID_BLANK
+		109: result := 'Name contains invalid blank(s) and therefor it cannot be used.';
+		// RC_NAME_ENDS_WITH_BLANK
+		111: result := 'Name cannot end with a blank.';
+		// RC_NAME_TOO_LONG
+		112: result := 'Name cannot be longer than 20 characters.';
+		// RC_NAME_TOO_SHORT
+		113: result := 'Name must be at least 4 characters.';
+		// RC_PASSWORD_TOO_LONG
+		115: result := 'Password cannot be longer than 16 characters.';
+		// RC_PASSWORD_TOO_SHORT
+		116: result := 'Password must be at least 8 characters.';
+		// RC_UNABLE_TO_DELETE_CITIZEN
+		124: result := 'Unable to delete citizen due to a database problem.';
+		// RC_NUMBER_ALREADY_USED
+		126: result := 'Citizenship with a matching citizen number already exists.';
+		// RC_NUMBER_OUT_OF_RANGE
+		127: result := 'Citizen number is larger than the auto-incremented field in the database.';
+		// RC_PRIVILEGE_PASSWORD_IS_TOO_SHORT
+		128: result := 'Privilege password must be either empty or at least 4 characters.';
+		// RC_PRIVILEGE_PASSWORD_IS_TOO_LONG
+		129: result := 'Password cannot be longer than 12 characters.';
+		// RC_NOT_CHANGE_OWNER
+		203: result := 'Not permitted to change the owner of an object.' + sLineBreak +
+                   'It requires eminent domain or caretaker capability.';
+		// RC_CANT_FIND_OLD_ELEMENT
+		204: result := 'Unable to find the object to change.';
+		// RC_IMPOSTER
+		212: result := 'Unable to enter world due to masquerading as someone else.';
+		// RC_ENCROACHES
+		300: result := 'Not allowed to encroach into another''s property.';
+		// RC_TOO_MANY_BYTES
+		303: result := 'Cell limit has been exceeded.';
+		// RC_UNREGISTERED_OBJECT
+		306: result := 'Model name does not exist in the registry.';
+		// RC_RESTRICTED_COMMAND
+		309: result := 'Unable to execute this command due to world or universe restrictions.';
+		// RC_RESTRICTED_OBJECT
+		313: result := 'Not allowed to build with "z" objects in this world.';
+		// RC_RESTRICTED_AREA
+		314: result := 'Not allowed to build within the restricted area of this world.';
+		// RC_NOT_YET
+		401: result := 'Exceeded the maximum number of operations per second.';
+		// RC_TIMEOUT
+		402: result := 'Synchronous operation timed out.';
+		// RC_UNABLE_TO_CONTACT_UNIVERSE
+		404: result := 'Unable to establish a connection to the universe server.';
+		// RC_NO_CONNECTION
+		439: result := 'Connection to the server is down.';
+		// RC_NOT_INITIALIZED
+		444: result := 'SDK API has not been initialized (by calling aw_init).';
+		// RC_NO_INSTANCE
+		445: result := 'No such instance exists.';
+		// RC_STRING_TOO_LONG
+		450: result := 'The string exceeds it''s allowed limmits.';
+		// RC_READ_ONLY
+		451: result := 'Unable to set attribute due to it being read-only.';
+		// RC_INVALID_INSTANCE
+		453: result := 'The specified instance is incorrect.';
+		// RC_VERSION_MISMATCH
+		454: result := 'AwPas.pas is made for a different build of the SDK.';
+		// RC_QUERY_IN_PROGRESS
+		464: result := 'A property query is already in progress.';
+		// RC_EJECTED
+		466: result := 'Disconnected from world due to ejection.';
+		// RC_NOT_WELCOME
+		467: result := 'Citizenship of the owner does not have bot rights in the world.';
+		// RC_CANT_RESOLVE_UNIVERSE_HOST
+		500: result := 'Unable to resolve the hostname of the universe.';
+		// RC_Z_BUF_ERROR
+		4995: result := '(ZLib) Not enough room in the output buffer.';
+		// RC_Z_MEM_ERROR
+		4996: result := '(ZLib) Memory could not be allocated for processing.';
+		// RC_Z_DATA_ERROR
+		4997: result := '(ZLib) Input data was corrupted.';
+    // UNKNOWN
+		else result := ' ';
+  end;
 end;
 
 end.
