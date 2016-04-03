@@ -110,10 +110,10 @@ begin
 	writeln('Bot entered World' + sLineBreak + sLineBreak +
           aw_string(AW_WORLD_WELCOME_MESSAGE) + sLineBreak);
 	// announce our position in the world
-	aw_int_set(AW_MY_X, BOT_X_POS); // 1W
+	aw_int_set(AW_MY_X, BOT_X_POS);
 	aw_int_set(AW_MY_Y, 1000);      // Height
-	aw_int_set(AW_MY_Z, BOT_Z_POS); // 1N
-	aw_int_set(AW_MY_YAW, BOT_YAW); // face towards GZ
+	aw_int_set(AW_MY_Z, BOT_Z_POS);
+	aw_int_set(AW_MY_YAW, BOT_YAW);
   errCode := aw_state_change;
   writeLn('Status code: '                  + IntToStr(errCode)        + sLineBreak +
           'VERBOSE: Status message: '      + aw_GetErrorText(errCode) + sLineBreak +
