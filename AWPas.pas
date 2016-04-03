@@ -1269,8 +1269,10 @@ AW_MOVER_FLAGS = (
     flag:  Word;
   end;
 
-  TCallBack = procedure(rc: Integer) of object;
-  THandler  = procedure of object;
+  TCallBack      = procedure(rc: Integer) of object;
+  THandler       = procedure of object;
+  TQueryArray    = array[0..2] of array[0..2] of Integer;
+  TQueryArrayBig = array[0..4] of array[0..4] of Integer;
 
   Paw_type_vector           = ^aw_type_vector;
   Paw_type_vector_range     = ^aw_type_vector_range;
@@ -1399,8 +1401,8 @@ function aw_object_select: Integer; cdecl;
 function aw_delete_all_objects: Integer; cdecl;
 function aw_object_bump: Integer; cdecl;
 // Query handlers
-function aw_query(x_sector, z_sector: Integer; sequence: array[0..2] of array[0..2] of Integer): Integer; cdecl;
-function aw_query_5x5(x_sector, z_sector: Integer; sequence: array[0..4] of array[0..4] of Integer): Integer; cdecl;
+function aw_query(x_sector, z_sector: Integer; sequence: TQueryArray): Integer; cdecl;
+function aw_query_5x5(x_sector, z_sector: Integer; sequence: TQueryArrayBig): Integer; cdecl;
 // Cell handlers
 function aw_sector_from_cell(cell: Integer): Integer; cdecl;
 function aw_cell_next: Integer; cdecl;
