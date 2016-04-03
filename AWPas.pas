@@ -3,11 +3,10 @@ unit AWPas;
 interface
 
 uses
-  Classes, SysUtils
-  {$IFDEF MSWindows}, Windows{$ENDIF};
+  Classes, SysUtils{$IFDEF MSWindows}, Windows{$ENDIF};
 
 const
-  {$IFDEF WIN64}
+  {$IFDEF BUILD64}
   libName = 'aw64.dll';
   {$ELSE}
   libName = 'aw.dll';
@@ -1464,14 +1463,14 @@ function aw_int(a: AW_ATTRIBUTE): Integer; cdecl;
 function aw_int_set(a: AW_ATTRIBUTE; value: Integer): Integer; cdecl;
 function aw_string(a: AW_ATTRIBUTE): PAnsiChar; cdecl;
 function aw_stringW(a: AW_ATTRIBUTE): PChar; cdecl;
-function aw_string_set(a: AW_ATTRIBUTE; const value: PAnsiChar): Integer; cdecl;
-function aw_string_setW(a: AW_ATTRIBUTE; const value: PChar): Integer; cdecl;
+function aw_string_set(a: AW_ATTRIBUTE; const value: AnsiString): Integer; cdecl;
+function aw_string_setW(a: AW_ATTRIBUTE; const value: WideString): Integer; cdecl;
 function aw_bool(a: AW_ATTRIBUTE): Integer; cdecl;
 function aw_bool_set(a: AW_ATTRIBUTE; value: Integer): Integer; cdecl;
 function aw_float(a: AW_ATTRIBUTE): Single; cdecl;
 function aw_float_set(a: AW_ATTRIBUTE; value: Single): Integer; cdecl;
 function aw_data(a: AW_ATTRIBUTE; length: PFixedUInt): PAnsiChar; cdecl;
-function aw_data_set(a: AW_ATTRIBUTE; const value: PAnsiChar; length: FixedUInt): Integer; cdecl;
+function aw_data_set(a: AW_ATTRIBUTE; const value: AnsiString; length: FixedUInt): Integer; cdecl;
 // Misc and Utils
 function  aw_state_change: Integer; cdecl;
 function  aw_wait(milliseconds: Integer): Integer; cdecl;
