@@ -410,7 +410,6 @@ type
     AW_BOTMENU_ANSWER,
 
     // attributes below are not used by the SDK
-
     AW_CONTACT_NUMBER,
     AW_CONTACT_STATUS,
     AW_CONTACT_NAME,
@@ -442,10 +441,9 @@ type
     AW_REGISTER_VENDOR,
     AW_REGISTER_RESULT,
     AW_REGISTER_METHOD,
-    AW_VOIP_DATA,
+    AW_VOIP_DAT,
 
     // attributes below are used by the SDK
-
     AW_UNIVERSE_CAV_PATH,
     AW_CITIZEN_PAV_ENABLED,
     AW_CAV_CITIZEN,
@@ -766,7 +764,7 @@ type
     AW_CONTACT_NOT_A_CITIZEN,
     AW_CONTACT_AFK,
     AW_CONTACT_UNKNOWN,
-    AW_CONTACT_DELETE
+    AW_CONTACT_DEL
   );
 
   AW_WORLD_STATES = (
@@ -1270,6 +1268,7 @@ AW_MOVER_FLAGS = (
   end;
 
   TCallBack      = procedure(rc: Integer) of object;
+  TDebugCallback = procedure(debug_string: AnsiString) of object;
   THandler       = procedure of object;
   TQueryArray    = array[0..2] of array[0..2] of Integer;
   TQueryArrayBig = array[0..4] of array[0..4] of Integer;
@@ -1534,91 +1533,65 @@ function aw_object_mover(len: PInteger): Paw_object_data_mover; cdecl;
 
 { methods below are not currently available in the SDK }
 // Contacts
-{
-AWAPI int   aw_contact_add (int citizen, unsigned int options);
-AWAPI int   aw_contact_add_by_name (char* name, unsigned int options);
-AWAPI int   aw_contact_add_by_nameW (wchar_t* name, unsigned int options);
-AWAPI int   aw_contact_change (int citizen, unsigned int options);
-AWAPI int   aw_contact_confirm (int citizen, unsigned int options);
-AWAPI int   aw_contact_delete (int citizen);
-AWAPI int   aw_contact_list (int start);
-}
+function aw_contact_add(citizen: Integer; options: FixedUInt): Integer; cdecl;
+function aw_contact_add_by_name(name: AnsiString; options: FixedUInt): Integer; cdecl;
+function aw_contact_add_by_nameW(name: WideString; options: FixedUInt): Integer; cdecl;
+function aw_contact_change(citizen: Integer; options: FixedUInt): Integer; cdecl;
+function aw_contact_confirm(citizen: Integer; options: FixedUInt): Integer; cdecl;
+function aw_contact_delete(citizen: Integer): Integer; cdecl;
+function aw_contact_list(start: Integer): Integer; cdecl;
 // AFK
-{
-AWAPI int   aw_afk_set (int flag);
-}
+function aw_afk_set(flag: Integer): Integer; cdecl;
 // Telegram
-{
-AWAPI int   aw_telegram_send (char* to, char* msg);
-AWAPI int   aw_telegram_sendW (wchar_t* to, wchar_t* msg);
-}
+function aw_telegram_send(_to, msg: AnsiString): Integer; cdecl;
+function aw_telegram_sendW(_to, msg: WideString): Integer; cdecl;
 // Join
-{
-AWAPI int   aw_join (int citizen);
-AWAPI int   aw_join_reply (int citizen, int reply_rc);
-}
+function aw_join(citizen: Integer): Integer; cdecl;
+function aw_join_reply(citizen, reply_rc: Integer): Integer; cdecl;
 // Forgot password
-{
-AWAPI int   aw_password_send (void);
-}
+function aw_password_send: Integer; cdecl;
 // Register
-{
-AWAPI int   aw_immigrate (void);
-AWAPI int   aw_register (int renewal);
-}
+function aw_immigrate: Integer; cdecl;
+function aw_register(renewal: Integer): Integer; cdecl;
 // File transfer
-{
-AWAPI int   aw_send_file (void);
-AWAPI int   aw_send_file_reply (int reply_rc);
-}
+function aw_send_file: Integer; cdecl;
+function aw_send_file_reply(reply_rc: Integer): Integer; cdecl;
 // Login timeout
-{
-AWAPI void  aw_login_timeout_set (int timeout);
-}
+procedure aw_login_timeout_set(timeout: Integer); cdecl;
 // Proxy
-{
-AWAPI int   aw_tunnel_set (const char* domain, unsigned short port);
-AWAPI int   aw_tunnel_setW (const wchar_t* domain, unsigned short port);
-AWAPI int   aw_tunnel_set_resolved (unsigned long address, unsigned short port);
-AWAPI int   aw_proxy_set (const char* domain, unsigned short port);
-AWAPI int   aw_proxy_setW (const wchar_t* domain, unsigned short port);
-AWAPI int   aw_proxy_set_resolved (unsigned long address, unsigned short port);
-AWAPI int   aw_proxy_set_login (const char* name, const char* password);
-AWAPI int   aw_proxy_set_loginW (const wchar_t* name, const wchar_t* password);
-}
+function aw_tunnel_set(const domain: AnsiString; port: Word): Integer; cdecl;
+function aw_tunnel_setW(const domain: WideString; port: Word): Integer; cdecl;
+function aw_tunnel_set_resolved(address: LongInt; port: Word): Integer; cdecl;
+function aw_proxy_set(const domain: AnsiString; port: Word): Integer; cdecl;
+function aw_proxy_setW(const domain: WideString; port: Word): Integer; cdecl;
+function aw_proxy_set_resolved(address: LongInt; port: Word): Integer; cdecl;
+function aw_proxy_set_login(const name, password: AnsiString): Integer; cdecl;
+function aw_proxy_set_loginW(const name, password: WideString): Integer; cdecl;
 // Communications
-{
-AWAPI int   aw_connection (void);
-AWAPI int   aw_connection_set (int type);
-AWAPI int   aw_connection_state (void* instance);
-}
+function aw_connection: Integer; cdecl;
+function aw_connection_set(_type: Integer): Integer; cdecl;
+function aw_connection_state(instance: Pointer): Integer; cdecl;
 // VOIP
-{
-AWAPI int   aw_voip_data (void* data, unsigned int len);
-AWAPI int   aw_voip_group_set (int group, char* rights);
-AWAPI int   aw_voip_group_setW (int group, wchar_t* rights);
-AWAPI int   aw_voipcast_set (const char* domain, unsigned short port);
-AWAPI int   aw_voipcast_setW (const wchar_t* domain, unsigned short port);
-AWAPI int   aw_voipcast_set_resolved (unsigned long address, unsigned short port);
-AWAPI int   aw_voipcast_ready (void);
-}
+function aw_voip_data(data: Pointer; len: FixedUInt): Integer; cdecl;
+function aw_voip_group_set(group: Integer; rights: AnsiString): Integer; cdecl;
+function aw_voip_group_setW(group: Integer; rights: WideString): Integer; cdecl;
+function aw_voipcast_set(const domain: AnsiString; port: Word): Integer; cdecl;
+function aw_voipcast_setW(const domain: WideString; port: Word): Integer; cdecl;
+function aw_voipcast_set_resolved(address: LongInt; port: Word): Integer; cdecl;
+function aw_voipcast_ready: Integer; cdecl;
 // Debug
-{
-AWAPI int   aw_debug_callback_set (void (*callback) (char* debug_string));
-}
+function aw_debug_callback_set(callback: TDebugCallback): Integer; cdecl;
 // XFer
-{
-AWAPI int   aw_xfer_offer ();
-AWAPI int   aw_xfer_reply ();
-AWAPI int   aw_xfer_send ();
-AWAPI int   aw_xfer_request ();
-AWAPI int   aw_xfer_request_show (const char* showName, int ShowSequence, const char* WorldName,
-                                  const char* ZoneName, const char* TagName);
-AWAPI int   aw_xfer_request_showW (const wchar_t* ShowName, int ShowSequence, const wchar_t* WorldName,
-                                  const wchar_t* ZoneName, const wchar_t* TagName);
-AWAPI int   aw_xfer_cancel ();
-AWAPI int   aw_xfer_query ();
-}
+function aw_xfer_offer: Integer; cdecl;
+function aw_xfer_reply: Integer; cdecl;
+function aw_xfer_send: Integer; cdecl;
+function aw_xfer_request: Integer; cdecl;
+function aw_xfer_request_show(const showName: AnsiString; ShowSequence: Integer;
+                              const WorldName, ZoneName, TagName: AnsiString): Integer; cdecl;
+function aw_xfer_request_showW(const ShowName: WideString; ShowSequence: Integer;
+                               const WorldName, ZoneName, TagName: WideString): Integer; cdecl;
+function aw_xfer_cancel: Integer; cdecl;
+function aw_xfer_query: Integer; cdecl;
 
 implementation
 
@@ -1843,6 +1816,66 @@ function aw_object_camera_set;    external libName;
 function aw_object_camera;        external libName;
 function aw_object_mover_set;     external libName;
 function aw_object_mover;         external libName;
+
+{ methods below are not currently available in the SDK }
+// Contacts
+function aw_contact_add;          external libName;
+function aw_contact_add_by_name;  external libName;
+function aw_contact_add_by_nameW; external libName;
+function aw_contact_change;       external libName;
+function aw_contact_confirm;      external libName;
+function aw_contact_delete;       external libName;
+function aw_contact_list;         external libName;
+// AFK
+function aw_afk_set; external libName;
+// Telegram
+function aw_telegram_send;  external libName;
+function aw_telegram_sendW; external libName;
+// Join
+function aw_join;       external libName;
+function aw_join_reply; external libName;
+// Forgot password
+function aw_password_send; external libName;
+// Register
+function aw_immigrate; external libName;
+function aw_register;  external libName;
+// File transfer
+function aw_send_file;       external libName;
+function aw_send_file_reply; external libName;
+// Login timeout
+procedure aw_login_timeout_set; external libName;
+// Proxy
+function aw_tunnel_set;          external libName;
+function aw_tunnel_setW;         external libName;
+function aw_tunnel_set_resolved; external libName;
+function aw_proxy_set;           external libName;
+function aw_proxy_setW;          external libName;
+function aw_proxy_set_resolved;  external libName;
+function aw_proxy_set_login;     external libName;
+function aw_proxy_set_loginW;    external libName;
+// Communications
+function aw_connection;       external libName;
+function aw_connection_set;   external libName;
+function aw_connection_state; external libName;
+// VOIP
+function aw_voip_data;             external libName;
+function aw_voip_group_set;        external libName;
+function aw_voip_group_setW;       external libName;
+function aw_voipcast_set;          external libName;
+function aw_voipcast_setW;         external libName;
+function aw_voipcast_set_resolved; external libName;
+function aw_voipcast_ready;        external libName;
+// Debug
+function aw_debug_callback_set; external libName;
+// XFer
+function aw_xfer_offer;         external libName;
+function aw_xfer_reply;         external libName;
+function aw_xfer_send;          external libName;
+function aw_xfer_request;       external libName;
+function aw_xfer_request_show;  external libName;
+function aw_xfer_request_showW; external libName;
+function aw_xfer_cancel;        external libName;
+function aw_xfer_query;         external libName;
 
 end.
 
