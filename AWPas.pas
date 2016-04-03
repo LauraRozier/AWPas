@@ -1351,37 +1351,31 @@ function aw_citizen_delete(citizen: Integer): Integer; cdecl;
 function aw_citizen_next: Integer; cdecl;
 function aw_citizen_previous: Integer; cdecl;
 // CAV handlers
-{
-AWAPI int   aw_cav_request (int citizen, int session);
-AWAPI int   aw_cav_change ();
-AWAPI int   aw_cav_delete ();
-AWAPI int   aw_world_cav_request (int citizen, int session);
-AWAPI int   aw_world_cav_change ();
-AWAPI int   aw_world_cav_delete ();
-#if defined(AW_BROWSER) || defined(AW_STATIC)
-AWAPI int   aw_cav_template_request (int citizen, int rebuild);
-AWAPI int   aw_cav_template_get (unsigned char* buf, int maxLen);
-}
+function aw_cav_request(citizen, session: Integer): Integer; cdecl;
+function aw_cav_change: Integer; cdecl;
+function aw_cav_delete: Integer; cdecl;
+function aw_world_cav_request(citizen, session: Integer): Integer; cdecl;
+function aw_world_cav_change: Integer; cdecl;
+function aw_world_cav_delete: Integer; cdecl;
+{$IF Defined(AW_BROWSER) or Defined(AW_STATIC)}
+function aw_cav_template_request(citizen, rebuild: Integer): Integer; cdecl;
+function aw_cav_template_get(buf: PByte; maxLen: Integer): Integer; cdecl;
 // Shop handlers
-{
-AWAPI int   aw_shopitem_query (int number, int mod_date);
-AWAPI int   aw_shopitem_by_id (int number);
-AWAPI int   aw_shopitem_by_desc (int type, const char* name);
-AWAPI int   aw_shopitem_by_descW (int type, const wchar_t* name);
-AWAPI int   aw_shopitem_add (void);
-AWAPI int   aw_shopitem_change (void);
-AWAPI int   aw_shopitem_next (void);
-AWAPI int   aw_shopitem_previous (void);
-AWAPI int   aw_shoptrans_total (int citizen, int recalc);
-AWAPI int   aw_shoptrans_buy (void);
-AWAPI int   aw_shoptrans_add (void);
-AWAPI int   aw_shoptrans_list (int citizen, int iterator);
-}
+function aw_shopitem_query(number, mod_date: Integer): Integer; cdecl;
+function aw_shopitem_by_id(number: Integer): Integer; cdecl;
+function aw_shopitem_by_desc(_type: Integer, const name: AnsiString): Integer; cdecl;
+function aw_shopitem_by_descW(_type: Integer, const name: WideString): Integer; cdecl;
+function aw_shopitem_add: Integer; cdecl;
+function aw_shopitem_change: Integer; cdecl;
+function aw_shopitem_next: Integer; cdecl;
+function aw_shopitem_previous: Integer; cdecl;
+function aw_shoptrans_total(citizen, recalc: Integer): Integer; cdecl;
+function aw_shoptrans_buy: Integer; cdecl;
+function aw_shoptrans_add: Integer; cdecl;
+function aw_shoptrans_list(citizen, iterator: Integer): Integer; cdecl;
 // Crypto
-{
-AWAPI int   aw_decipher (int type, char* bufIn, int bufInLen, char* bufOut, int* bufOutLen);
-#endif
-}
+function aw_decipher(_type: Integer; bufIn: AnsiString; bufInLen: Integer; bufOut: AnsiString; bufOutLen: PInteger): Integer; cdecl;
+{$ENDIF}
 // License handlers
 {
 AWAPI int   aw_license_add (void);
@@ -1710,6 +1704,32 @@ function aw_citizen_change;               external libName;
 function aw_citizen_delete;               external libName;
 function aw_citizen_next;                 external libName;
 function aw_citizen_previous;             external libName;
+// CAV handlers
+function aw_cav_request;          external libName;
+function aw_cav_change;           external libName;
+function aw_cav_delete;           external libName;
+function aw_world_cav_request;    external libName;
+function aw_world_cav_change;     external libName;
+function aw_world_cav_delete;     external libName;
+{$IF Defined(AW_BROWSER) or Defined(AW_STATIC)}
+function aw_cav_template_request; external libName;
+function aw_cav_template_get;     external libName;
+// Shop handlers
+function aw_shopitem_query;    external libName;
+function aw_shopitem_by_id;    external libName;
+function aw_shopitem_by_desc;  external libName;
+function aw_shopitem_by_descW; external libName;
+function aw_shopitem_add;      external libName;
+function aw_shopitem_change;   external libName;
+function aw_shopitem_next;     external libName;
+function aw_shopitem_previous; external libName;
+function aw_shoptrans_total;   external libName;
+function aw_shoptrans_buy;     external libName;
+function aw_shoptrans_add;     external libName;
+function aw_shoptrans_list;    external libName;
+// Crypto
+function aw_decipher; external libName;
+{$ENDIF}
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
