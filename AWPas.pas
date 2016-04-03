@@ -1407,21 +1407,17 @@ function aw_query_5x5(x_sector, z_sector: Integer; sequence: TQueryArrayBig): In
 function aw_sector_from_cell(cell: Integer): Integer; cdecl;
 function aw_cell_next: Integer; cdecl;
 // Avatar handlers
-{
-AWAPI int   aw_avatar_click (int session_id);
-AWAPI int   aw_avatar_set (int session_id);
-AWAPI int   aw_avatar_reload (int citizen, int session_id);
-AWAPI int   aw_avatar_location (int citizen, int session_id, char* name);
-AWAPI int   aw_avatar_locationW (int citizen, int session_id, wchar_t* name);
-}
+function aw_avatar_click(session_id: Integer): Integer; cdecl;
+function aw_avatar_set(session_id: Integer): Integer; cdecl;
+function aw_avatar_reload(citizen, session_id: Integer): Integer; cdecl;
+function aw_avatar_location(citizen, session_id: Integer; name: AnsiString): Integer; cdecl;
+function aw_avatar_locationW(citizen, session_id: Integer; name: WideString): Integer; cdecl;
 // User handlers
-{
-AWAPI int   aw_teleport (int session_id);
-AWAPI int   aw_user_data_set (void* data);
-AWAPI void* aw_user_data (void);
-AWAPI int   aw_user_list (void);
-AWAPI int   aw_camera_set (int session_id);
-}
+function aw_teleport(session_id: Integer): Integer; cdecl;
+function aw_user_data_set(data: Pointer): Integer; cdecl;
+function aw_user_data: Pointer; cdecl;
+function aw_user_list: Integer; cdecl;
+function aw_camera_set(session_id: Integer): Integer; cdecl;
 // URL handlers
 {
 AWAPI int   aw_url_send (int session_id, const char* url, const char* target);
@@ -1752,6 +1748,18 @@ function aw_query_5x5; external libName;
 // Cell handlers
 function aw_sector_from_cell; external libName;
 function aw_cell_next;        external libName;
+// Avatar handlers
+function aw_avatar_click;     external libName;
+function aw_avatar_set;       external libName;
+function aw_avatar_reload;    external libName;
+function aw_avatar_location;  external libName;
+function aw_avatar_locationW; external libName;
+// User handlers
+function aw_teleport;      external libName;
+function aw_user_data_set; external libName;
+function aw_user_data;     external libName;
+function aw_user_list;     external libName;
+function aw_camera_set;    external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
