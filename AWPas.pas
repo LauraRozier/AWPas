@@ -3,7 +3,7 @@ unit AWPas;
 interface
 
 uses
-  Classes, SysUtils{$IFDEF MSWindows}, Windows{$ENDIF};
+  Classes, SysUtils {$IFDEF MSWindows}, Windows{$ENDIF};
 
 const
   {$IFDEF BUILD64}

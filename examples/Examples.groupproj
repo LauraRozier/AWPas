@@ -6,6 +6,9 @@
         <Projects Include="GreeterBot\GreeterBot.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="DJBot\DJBot.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -23,14 +26,23 @@
     <Target Name="GreeterBot:Make">
         <MSBuild Projects="GreeterBot\GreeterBot.dproj" Targets="Make"/>
     </Target>
+    <Target Name="DJBot">
+        <MSBuild Projects="DJBot\DJBot.dproj"/>
+    </Target>
+    <Target Name="DJBot:Clean">
+        <MSBuild Projects="DJBot\DJBot.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DJBot:Make">
+        <MSBuild Projects="DJBot\DJBot.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="GreeterBot"/>
+        <CallTarget Targets="GreeterBot;DJBot"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="GreeterBot:Clean"/>
+        <CallTarget Targets="GreeterBot:Clean;DJBot:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="GreeterBot:Make"/>
+        <CallTarget Targets="GreeterBot:Make;DJBot:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

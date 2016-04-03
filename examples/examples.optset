@@ -3,7 +3,7 @@
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>None</Manifest_File>
         <VerInfo_Locale>1043</VerInfo_Locale>
-        <SanitizedProjectName>GreeterBot</SanitizedProjectName>
+        <SanitizedProjectName>DJBot</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
         <DCC_DcuOutput>.\DCU\$(Platform)</DCC_DcuOutput>
         <DCC_ExeOutput>.\bin\</DCC_ExeOutput>
