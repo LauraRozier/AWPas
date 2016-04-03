@@ -1419,29 +1419,25 @@ function aw_user_data: Pointer; cdecl;
 function aw_user_list: Integer; cdecl;
 function aw_camera_set(session_id: Integer): Integer; cdecl;
 // URL handlers
-{
-AWAPI int   aw_url_send (int session_id, const char* url, const char* target);
-AWAPI int   aw_url_sendW (int session_id, const wchar_t* url, const wchar_t* target);
-AWAPI int   aw_url_click (const char* url);
-AWAPI int   aw_url_clickW (const wchar_t* url);
-}
+function aw_url_send(session_id: Integer; const url, target: AnsiString): Integer; cdecl;
+function aw_url_sendW(session_id: Integer; const url, target: WideString): Integer; cdecl;
+function aw_url_click(const url: AnsiString): Integer; cdecl;
+function aw_url_clickW(const url: WideString): Integer; cdecl;
 // Terrain handlers
-{
-AWAPI int   aw_terrain_set (int x, int z, int count, int texture, int* heights);
-AWAPI int   aw_terrain_query (int page_x, int page_z, unsigned long sequence);
-AWAPI int   aw_terrain_next (void);
-AWAPI int   aw_terrain_delete_all (void);
-AWAPI int   aw_terrain_load_node (void);
-}
+function aw_terrain_set(x, z, count, texture: Integer; heights: PInteger): Integer; cdecl;
+function aw_terrain_query(page_x, page_z: Integer; sequence: LongInt): Integer; cdecl;
+function aw_terrain_next: Integer; cdecl;
+function aw_terrain_delete_all: Integer; cdecl;
+function aw_terrain_load_node: Integer; cdecl;
 // Mover handlers
-{
-AWAPI int   aw_mover_set_state (int id, int state, int model_num);
-AWAPI int   aw_mover_set_position (int id, int x, int y, int z, int yaw, int pitch, int roll);
-AWAPI int   aw_mover_rider_add (int id, int session, int dist, int angle, int y_delta, int yaw_delta, int pitch_delta);
-AWAPI int   aw_mover_rider_change (int id, int session, int dist, int angle, int y_delta, int yaw_delta, int pitch_delta);
-AWAPI int   aw_mover_rider_delete (int id, int session);
-AWAPI int   aw_mover_links (int id);
-}
+function aw_mover_set_state(id, state, model_num: Integer): Integer; cdecl;
+function aw_mover_set_position(id, x, y, z, yaw, pitch, roll: Integer): Integer; cdecl;
+function aw_mover_rider_add(id, session, dist, angle, y_delta, yaw_delta,
+                            pitch_delta: Integer): Integer; cdecl;
+function aw_mover_rider_change(id, session, dist, angle, y_delta, yaw_delta,
+                               pitch_delta: Integer): Integer; cdecl;
+function aw_mover_rider_delete(id, session: Integer): Integer; cdecl;
+function aw_mover_links(id: Integer): Integer; cdecl;
 // GUI handlers
 function aw_hud_create: Integer; cdecl;
 function aw_hud_click: Integer; cdecl;
@@ -1760,6 +1756,24 @@ function aw_user_data_set; external libName;
 function aw_user_data;     external libName;
 function aw_user_list;     external libName;
 function aw_camera_set;    external libName;
+// URL handlers
+function aw_url_send;   external libName;
+function aw_url_sendW;  external libName;
+function aw_url_click;  external libName;
+function aw_url_clickW; external libName;
+// Terrain handlers
+function aw_terrain_set;        external libName;
+function aw_terrain_query;      external libName;
+function aw_terrain_next;       external libName;
+function aw_terrain_delete_all; external libName;
+function aw_terrain_load_node;  external libName;
+// Mover handlers
+function aw_mover_set_state;    external libName;
+function aw_mover_set_position; external libName;
+function aw_mover_rider_add;    external libName;
+function aw_mover_rider_change; external libName;
+function aw_mover_rider_delete; external libName;
+function aw_mover_links;        external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
