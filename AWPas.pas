@@ -1342,16 +1342,14 @@ function aw_whisperW(session_id: Integer; const _message: WideString): Integer; 
 function aw_console_message(session_id: Integer): Integer; cdecl;
 function aw_botgram_send: Integer; cdecl;
 // Citizen handlers
-{
-AWAPI int   aw_citizen_attributes_by_name (const char* name);
-AWAPI int   aw_citizen_attributes_by_nameW (const wchar_t* name);
-AWAPI int   aw_citizen_attributes_by_number (int citizen);
-AWAPI int   aw_citizen_add (void);
-AWAPI int   aw_citizen_change (void);
-AWAPI int   aw_citizen_delete (int citizen);
-AWAPI int   aw_citizen_next (void);
-AWAPI int   aw_citizen_previous (void);
-}
+function aw_citizen_attributes_by_name(const name: AnsiString): Integer; cdecl;
+function aw_citizen_attributes_by_nameW(const name: WideString): Integer; cdecl;
+function aw_citizen_attributes_by_number(citizen: Integer): Integer; cdecl;
+function aw_citizen_add: Integer; cdecl;
+function aw_citizen_change: Integer; cdecl;
+function aw_citizen_delete(citizen: Integer): Integer; cdecl;
+function aw_citizen_next: Integer; cdecl;
+function aw_citizen_previous: Integer; cdecl;
 // CAV handlers
 {
 AWAPI int   aw_cav_request (int citizen, int session);
@@ -1703,6 +1701,15 @@ function aw_whisper;         external libName;
 function aw_whisperW;        external libName;
 function aw_console_message; external libName;
 function aw_botgram_send;    external libName;
+// Citizen handlers
+function aw_citizen_attributes_by_name;   external libName;
+function aw_citizen_attributes_by_nameW;  external libName;
+function aw_citizen_attributes_by_number; external libName;
+function aw_citizen_add;                  external libName;
+function aw_citizen_change;               external libName;
+function aw_citizen_delete;               external libName;
+function aw_citizen_next;                 external libName;
+function aw_citizen_previous;             external libName;
 // GUI handlers
 function aw_hud_create;  external libName;
 function aw_hud_click;   external libName;
